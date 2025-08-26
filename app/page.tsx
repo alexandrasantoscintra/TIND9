@@ -971,7 +971,7 @@ export default function SigiloX() {
   const [combinedPhotos3544, setCombinedPhotos3544] = useState<string[]>([])
   const [combinedPhotos4554, setCombinedPhotos4554] = useState<string[]>([])
 
-    const generateFakeProfiles = useCallback(() => {
+      const generateFakeProfiles = useCallback(() => {
     const profiles: any[] = []
 
     // Helper para embaralhar um array
@@ -984,56 +984,37 @@ export default function SigiloX() {
       return newArr;
     };
 
-    // --- INÍCIO: Lógica de Localização Dinâmica ---
+    // --- INÍCIO: Nova Lógica de Localização (Repetir a cidade do lead) ---
 
-    // 1. Banco de dados de cidades e seus arredores para dar mais realismo.
-    // Você pode expandir esta lista com mais cidades importantes.
-    const nearbyCitiesDB = {
-        "New York": ["Brooklyn", "Queens", "Newark", "Jersey City", "Manhattan"],
-        "Los Angeles": ["Long Beach", "Santa Monica", "Pasadena", "Glendale", "Hollywood"],
-        "Chicago": ["Evanston", "Naperville", "Aurora", "Oak Park"],
-        "Austin": ["Round Rock", "San Marcos", "Cedar Park", "Georgetown"],
-        "Miami": ["Fort Lauderdale", "Miami Beach", "Hollywood", "Hialeah", "Coral Gables"],
-        "London": ["Westminster", "Camden", "Croydon", "Islington", "Greenwich"],
-        "São Paulo": ["Guarulhos", "São Bernardo", "Santo André", "Osasco", "Campinas"],
-        "Rio de Janeiro": ["Niterói", "Duque de Caxias", "São Gonçalo", "Nova Iguaçu"],
-        "Belo Horizonte": ["Contagem", "Betim", "Nova Lima", "Sabará"],
-        "Lisbon": ["Sintra", "Cascais", "Amadora", "Porto Salvo"]
-    };
+    let matchLocation = ""; // Esta variável guardará a cidade a ser usada em TODOS os matches.
 
-    // 2. Lista de fallback caso a geolocalização do usuário falhe
-    const defaultGlobalLocations = [
-      "New York", "Los Angeles", "Chicago", "London", "Paris", "Tokyo", "Sydney", "Miami"
-    ];
-
-    let locationOptions = defaultGlobalLocations;
-
-    // 3. Verifica se a cidade do usuário foi detectada pelo seu hook
     if (city) {
-        // Tenta encontrar a cidade do usuário como uma chave principal no nosso DB
-        const cityKey = Object.keys(nearbyCitiesDB).find(key => city.includes(key)) as keyof typeof nearbyCitiesDB | undefined;
-        
-        if (cityKey && nearbyCitiesDB[cityKey]) {
-            // CASO 1: A cidade foi encontrada. Usamos as cidades vizinhas para os matches.
-            locationOptions = nearbyCitiesDB[cityKey];
-        } else {
-            // CASO 2: A cidade não está no nosso DB. Usamos a própria cidade do usuário
-            // e misturamos com outras cidades genéricas para variedade.
-            locationOptions = [city, city, city, "New York", "Los Angeles", "London"];
-        }
+        // CASO 1: A geolocalização do lead funcionou. Usaremos a cidade dele.
+        matchLocation = city;
+    } else {
+        // CASO 2: A geolocalização falhou. Escolhemos UMA cidade padrão aleatória
+        // para usar como fallback em todos os matches.
+        const defaultGlobalLocations = [
+          "New York", "Los Angeles", "Chicago", "London", "Paris", "Tokyo", "Sydney", "Miami"
+        ];
+        matchLocation = defaultGlobalLocations[Math.floor(Math.random() * defaultGlobalLocations.length)];
     }
-    // Se 'city' for nulo, locationOptions continua sendo 'defaultGlobalLocations'.
 
-    // --- FIM: Lógica de Localização Dinâmica ---
+    // --- FIM: Nova Lógica de Localização ---
 
     const sampleBios = [
+      "I'm what you get if you mix Pete Davidson with Denzel Washington. I'm funny on accident and my mom thinks I'm handsome",
       "Adventure seeker, coffee lover, and dog enthusiast. Looking for someone to explore the city with!",
       "Fitness enthusiast by day, Netflix binger by night. Let's grab a smoothie and talk about life.",
       "Artist, dreamer, and part-time philosopher. I believe in good vibes and great conversations.",
     ];
-    const personalityTags = [["Capricorn", "INTJ", "Cat"], ["Leo", "ENFP", "Dog"], ["Virgo", "ISFJ", "Coffee"]];
-    const interestTags = [["Pro-Choice", "Coffee", "Tattoos"], ["Yoga", "Photography", "Cooking"], ["Fitness", "Books", "Wine"]];
-    const orientations = ["Straight", "Bisexual", "Pansexual", "Straight", "Queer"];
+    const personalityTags = [
+      ["Capricorn", "INTJ", "Cat"], ["Leo", "ENFP", "Dog"], ["Virgo", "ISFJ", "Coffee"], ["Gemini", "ENTP", "Travel"]
+    ];
+    const interestTags = [
+      ["Pro-Choice", "Coffee", "Black Lives Matter", "Tattoos"], ["Yoga", "Sustainability", "Photography", "Cooking"], ["Fitness", "Meditation", "Books", "Wine"]
+    ];
+    const orientations = ["Straight", "Straight", "Bisexual", "Pansexual", "Straight", "Queer"];
 
     let names, targetGender, photoArray;
 
@@ -1066,12 +1047,10 @@ export default function SigiloX() {
 
     const shuffledNames = shuffleArray(names);
     const shuffledPhotos = shuffleArray(photoArray);
-    const shuffledLocations = shuffleArray(locationOptions); // Embaralha as cidades selecionadas
 
     for (let i = 0; i < 3; i++) {
       const name = shuffledNames[i % shuffledNames.length];
       const profileImage = shuffledPhotos[i % shuffledPhotos.length];
-      const location = shuffledLocations[i % shuffledLocations.length]; // Pega uma cidade embaralhada
       const age = Math.floor(Math.random() * 7) + (parseInt(ageRange.split("-")[0]) || 25);
 
       profiles.push({
@@ -1081,9 +1060,9 @@ export default function SigiloX() {
         description: "Active user, frequently online",
         image: profileImage,
         bio: sampleBios[Math.floor(Math.random() * sampleBios.length)],
-        // 4. Aplica a localização dinâmica aqui
-        location: `Lives in ${location}`,
-        distance: `${Math.floor(Math.random() * 25) + 1} km away`, // Distância mais realista
+        // Aqui usamos a variável 'matchLocation' para todos os perfis
+        location: `Lives in ${matchLocation}`,
+        distance: `${Math.floor(Math.random() * 15) + 1} km away`, // Distância mais curta para parecer mais local
         orientation: orientations[Math.floor(Math.random() * orientations.length)],
         personality: personalityTags[Math.floor(Math.random() * personalityTags.length)],
         interests: interestTags[Math.floor(Math.random() * interestTags.length)],
@@ -1096,7 +1075,7 @@ export default function SigiloX() {
   }, [
     selectedGender,
     ageRange,
-    city, // <-- IMPORTANTE: Adicione 'city' às dependências do useCallback
+    city, // A dependência 'city' continua importante aqui
     femalePhotos1824,
     femalePhotos2534,
     femalePhotos3544,
@@ -2237,7 +2216,9 @@ export default function SigiloX() {
                     <h3 className="text-lg sm:text-xl font-bold text-[#333333] mb-4 sm:mb-6">
                       🔥 RECENT MATCHES FOUND
                     </h3>
-
+                       <p className="text-sm text-gray-600 text-left mb-6">
+    Tap on a match to view more information
+  </p>
                     <div className="space-y-4">
                       {generatedProfiles.map((profile, index) => (
                         <div
