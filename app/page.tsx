@@ -2533,7 +2533,7 @@ export default function SigiloX() {
             </motion.div>
           )}
 
-          {/* Offer Page - Mobile Optimized */}
+                    {/* Offer Page - Mobile Optimized */}
           {currentStep === "offer" && (
             <motion.div
               key="offer"
@@ -2596,5 +2596,11 @@ export default function SigiloX() {
                             Complete Conversation History (see exactly what they're telling other people)
                           </span>
                         </div>
-                        <div className="flex items-start gap-3 sm:gap-4">
-                          <CheckCircle className="w-5 h-5 sm:w-6 sm:\
+                        {/* ESTA PARTE ESTAVA FALTANDO E QUEBRADA */}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </motion.div>
+          )}
