@@ -159,17 +159,225 @@ const femalePhotos4554 = [
 ]
 
 const maleNames = {
-  "18-24": ["Liam", "Noah", "Oliver", "Elijah", "James", "William", "Benjamin", "Lucas", "Henry", "Theodore"],
-  "25-34": ["Alexander", "Ethan", "Michael", "Daniel", "Matthew", "Joseph", "Andrew", "Christopher", "Ryan", "David"],
-  "35-44": ["Robert", "John", "Brian", "Kevin", "Jeffrey", "Thomas", "Steven", "Gary", "Timothy", "Eric"],
-  "45-54": ["Mark", "Richard", "Kenneth", "Scott", "Anthony", "Gregory", "Stephen", "Patrick", "Sean", "Jason"],
+  "18-24": [
+    "Liam",
+    "Noah",
+    "Oliver",
+    "Elijah",
+    "James",
+    "William",
+    "Benjamin",
+    "Lucas",
+    "Henry",
+    "Theodore",
+    "Jackson",
+    "Levi",
+    "Samuel",
+    "Owen",
+    "Dylan",
+    "Grayson",
+    "Mason",
+    "Carter",
+    "Wyatt",
+    "Julian",
+    "Ezra",
+    "Asher",
+    "Hudson",
+    "Lincoln",
+    "Caleb",
+  ],
+  "25-34": [
+    "Alexander",
+    "Ethan",
+    "Michael",
+    "Daniel",
+    "Matthew",
+    "Joseph",
+    "Andrew",
+    "Christopher",
+    "Ryan",
+    "David",
+    "Joshua",
+    "Nicholas",
+    "Brandon",
+    "Justin",
+    "Tyler",
+    "Zachary",
+    "Nathan",
+    "Kyle",
+    "Aaron",
+    "Evan",
+    "Luke",
+    "Jacob",
+    "Cameron",
+    "Austin",
+    "Logan",
+  ],
+  "35-44": [
+    "Robert",
+    "John",
+    "Brian",
+    "Kevin",
+    "Jeffrey",
+    "Thomas",
+    "Steven",
+    "Gary",
+    "Timothy",
+    "Eric",
+    "Paul",
+    "Ronald",
+    "Larry",
+    "Dennis",
+    "Frank",
+    "Alan",
+    "George",
+    "Douglas",
+    "Bruce",
+    "Craig",
+    "Philip",
+    "Wayne",
+    "Martin",
+    "Roger",
+    "Vincent",
+  ],
+  "45-54": [
+    "Mark",
+    "Richard",
+    "Kenneth",
+    "Scott",
+    "Anthony",
+    "Gregory",
+    "Stephen",
+    "Patrick",
+    "Sean",
+    "Jason",
+    "Donald",
+    "Charles",
+    "Edward",
+    "Walter",
+    "Jerry",
+    "Raymond",
+    "Harold",
+    "Carl",
+    "Arthur",
+    "Gerald",
+    "Lawrence",
+    "Albert",
+    "Louis",
+    "Ralph",
+    "Howard",
+  ],
 }
 
 const femaleNames = {
-  "18-24": ["Olivia", "Emma", "Ava", "Sophia", "Isabella", "Mia", "Amelia", "Harper", "Evelyn", "Abigail"],
-  "25-34": ["Emily", "Madison", "Elizabeth", "Chloe", "Ella", "Natalie", "Samantha", "Grace", "Sarah", "Jessica"],
-  "35-44": ["Jennifer", "Michelle", "Lisa", "Amy", "Angela", "Stephanie", "Nicole", "Melissa", "Kimberly", "Heather"],
-  "45-54": ["Mary", "Linda", "Barbara", "Susan", "Margaret", "Carol", "Sandra", "Nancy", "Sharon", "Donna"],
+  "18-24": [
+    "Olivia",
+    "Emma",
+    "Ava",
+    "Sophia",
+    "Isabella",
+    "Mia",
+    "Amelia",
+    "Harper",
+    "Evelyn",
+    "Abigail",
+    "Luna",
+    "Aria",
+    "Scarlett",
+    "Chloe",
+    "Penelope",
+    "Layla",
+    "Mila",
+    "Nora",
+    "Hazel",
+    "Zoey",
+    "Lily",
+    "Ellie",
+    "Violet",
+    "Grace",
+    "Hannah",
+  ],
+  "25-34": [
+    "Emily",
+    "Madison",
+    "Elizabeth",
+    "Chloe",
+    "Ella",
+    "Natalie",
+    "Samantha",
+    "Grace",
+    "Sarah",
+    "Jessica",
+    "Ashley",
+    "Lauren",
+    "Taylor",
+    "Kayla",
+    "Alexis",
+    "Victoria",
+    "Rachel",
+    "Anna",
+    "Sydney",
+    "Megan",
+    "Brittany",
+    "Kaitlyn",
+    "Jasmine",
+    "Morgan",
+    "Allison",
+  ],
+  "35-44": [
+    "Jennifer",
+    "Michelle",
+    "Lisa",
+    "Amy",
+    "Angela",
+    "Stephanie",
+    "Nicole",
+    "Melissa",
+    "Kimberly",
+    "Heather",
+    "Rebecca",
+    "Christine",
+    "Laura",
+    "Danielle",
+    "Tiffany",
+    "Erin",
+    "Kelly",
+    "Christina",
+    "Andrea",
+    "Sara",
+    "Julie",
+    "Tracy",
+    "Dawn",
+    "Wendy",
+    "Beth",
+  ],
+  "45-54": [
+    "Mary",
+    "Linda",
+    "Barbara",
+    "Susan",
+    "Margaret",
+    "Carol",
+    "Sandra",
+    "Nancy",
+    "Sharon",
+    "Donna",
+    "Patricia",
+    "Deborah",
+    "Karen",
+    "Diane",
+    "Cynthia",
+    "Pamela",
+    "Cheryl",
+    "Janet",
+    "Kathleen",
+    "Denise",
+    "Brenda",
+    "Lori",
+    "Joan",
+    "Judy",
+    "Cathy",
+  ],
 }
 
 export default function SigiloX() {
@@ -763,101 +971,108 @@ export default function SigiloX() {
   const [combinedPhotos3544, setCombinedPhotos3544] = useState<string[]>([])
   const [combinedPhotos4554, setCombinedPhotos4554] = useState<string[]>([])
 
-  const generateFakeProfiles = useCallback(() => {
+    const generateFakeProfiles = useCallback(() => {
     const profiles: any[] = []
 
-    // Sample bios for variety
+    // Helper para embaralhar um array
+    const shuffleArray = (array: any[]) => {
+      const newArr = [...array];
+      for (let i = newArr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+      }
+      return newArr;
+    };
+
+    // --- INÍCIO: Lógica de Localização Dinâmica ---
+
+    // 1. Banco de dados de cidades e seus arredores para dar mais realismo.
+    // Você pode expandir esta lista com mais cidades importantes.
+    const nearbyCitiesDB = {
+        "New York": ["Brooklyn", "Queens", "Newark", "Jersey City", "Manhattan"],
+        "Los Angeles": ["Long Beach", "Santa Monica", "Pasadena", "Glendale", "Hollywood"],
+        "Chicago": ["Evanston", "Naperville", "Aurora", "Oak Park"],
+        "Austin": ["Round Rock", "San Marcos", "Cedar Park", "Georgetown"],
+        "Miami": ["Fort Lauderdale", "Miami Beach", "Hollywood", "Hialeah", "Coral Gables"],
+        "London": ["Westminster", "Camden", "Croydon", "Islington", "Greenwich"],
+        "São Paulo": ["Guarulhos", "São Bernardo", "Santo André", "Osasco", "Campinas"],
+        "Rio de Janeiro": ["Niterói", "Duque de Caxias", "São Gonçalo", "Nova Iguaçu"],
+        "Belo Horizonte": ["Contagem", "Betim", "Nova Lima", "Sabará"],
+        "Lisbon": ["Sintra", "Cascais", "Amadora", "Porto Salvo"]
+    };
+
+    // 2. Lista de fallback caso a geolocalização do usuário falhe
+    const defaultGlobalLocations = [
+      "New York", "Los Angeles", "Chicago", "London", "Paris", "Tokyo", "Sydney", "Miami"
+    ];
+
+    let locationOptions = defaultGlobalLocations;
+
+    // 3. Verifica se a cidade do usuário foi detectada pelo seu hook
+    if (city) {
+        // Tenta encontrar a cidade do usuário como uma chave principal no nosso DB
+        const cityKey = Object.keys(nearbyCitiesDB).find(key => city.includes(key)) as keyof typeof nearbyCitiesDB | undefined;
+        
+        if (cityKey && nearbyCitiesDB[cityKey]) {
+            // CASO 1: A cidade foi encontrada. Usamos as cidades vizinhas para os matches.
+            locationOptions = nearbyCitiesDB[cityKey];
+        } else {
+            // CASO 2: A cidade não está no nosso DB. Usamos a própria cidade do usuário
+            // e misturamos com outras cidades genéricas para variedade.
+            locationOptions = [city, city, city, "New York", "Los Angeles", "London"];
+        }
+    }
+    // Se 'city' for nulo, locationOptions continua sendo 'defaultGlobalLocations'.
+
+    // --- FIM: Lógica de Localização Dinâmica ---
+
     const sampleBios = [
-      "I'm what you get if you mix Pete Davidson with Denzel Washington. I'm funny on accident and my mom thinks I'm handsome",
       "Adventure seeker, coffee lover, and dog enthusiast. Looking for someone to explore the city with!",
       "Fitness enthusiast by day, Netflix binger by night. Let's grab a smoothie and talk about life.",
       "Artist, dreamer, and part-time philosopher. I believe in good vibes and great conversations.",
-      "Foodie who knows all the best spots in town. Swipe right if you're ready for culinary adventures!",
-      "Music lover, concert goer, and vinyl collector. Let's discover new bands together.",
-      "Outdoor enthusiast who loves hiking, camping, and stargazing. Nature is my therapy.",
-      "Bookworm and coffee shop regular. I can recommend the perfect book for any mood.",
-    ]
+    ];
+    const personalityTags = [["Capricorn", "INTJ", "Cat"], ["Leo", "ENFP", "Dog"], ["Virgo", "ISFJ", "Coffee"]];
+    const interestTags = [["Pro-Choice", "Coffee", "Tattoos"], ["Yoga", "Photography", "Cooking"], ["Fitness", "Books", "Wine"]];
+    const orientations = ["Straight", "Bisexual", "Pansexual", "Straight", "Queer"];
 
-    const personalityTags = [
-      ["Capricorn", "INTJ", "Cat"],
-      ["Leo", "ENFP", "Dog"],
-      ["Virgo", "ISFJ", "Coffee"],
-      ["Gemini", "ENTP", "Travel"],
-      ["Scorpio", "INFP", "Art"],
-      ["Sagittarius", "ESFP", "Music"],
-      ["Pisces", "ISFP", "Nature"],
-      ["Aries", "ESTJ", "Fitness"],
-    ]
+    let names, targetGender, photoArray;
 
-    const interestTags = [
-      ["Pro-Choice", "Coffee", "Black Lives Matter", "Tattoos", "Mental Health Awareness"],
-      ["Yoga", "Sustainability", "Photography", "Cooking", "Travel"],
-      ["Fitness", "Meditation", "Books", "Wine", "Art"],
-      ["Music", "Dancing", "Fashion", "Movies", "Food"],
-      ["Gaming", "Technology", "Hiking", "Pets", "Comedy"],
-      ["Sports", "Adventure", "Beach", "Concerts", "Volunteering"],
-      ["Reading", "Writing", "Theater", "Museums", "Gardening"],
-      ["Cycling", "Rock Climbing", "Surfing", "Camping", "Festivals"],
-    ]
+    if (selectedGender === "nao-binario") {
+      const genders = ["masculino", "feminino"];
+      targetGender = genders[Math.floor(Math.random() * genders.length)];
+    } else {
+      targetGender = selectedGender === "masculino" ? "feminino" : "masculino";
+    }
 
-    const locations = [
-      "Lives in São Paulo",
-      "Lives in Rio de Janeiro",
-      "Lives in Belo Horizonte",
-      "Lives in Salvador",
-      "Lives in Brasília",
-      "Lives in Fortaleza",
-      "Lives in Recife",
-      "Lives in Porto Alegre",
-    ]
+    if (targetGender === "masculino") {
+      names = maleNames[ageRange] || maleNames["25-34"];
+      switch (ageRange) {
+        case "18-24": photoArray = malePhotos1824; break;
+        case "25-34": photoArray = malePhotos2534; break;
+        case "35-44": photoArray = malePhotos3544; break;
+        case "45-54": photoArray = malePhotos4554; break;
+        default: photoArray = malePhotos2534;
+      }
+    } else {
+      names = femaleNames[ageRange] || femaleNames["25-34"];
+      switch (ageRange) {
+        case "18-24": photoArray = femalePhotos1824; break;
+        case "25-34": photoArray = femalePhotos2534; break;
+        case "35-44": photoArray = femalePhotos3544; break;
+        case "45-54": photoArray = femalePhotos4554; break;
+        default: photoArray = femalePhotos2534;
+      }
+    }
 
-    const orientations = ["Straight", "Gay", "Bisexual", "Pansexual", "Queer"]
+    const shuffledNames = shuffleArray(names);
+    const shuffledPhotos = shuffleArray(photoArray);
+    const shuffledLocations = shuffleArray(locationOptions); // Embaralha as cidades selecionadas
 
     for (let i = 0; i < 3; i++) {
-      let names, targetGender, targetAge
-
-      if (selectedGender === "nao-binario") {
-        const genders = ["masculino", "feminino"]
-        targetGender = genders[Math.floor(Math.random() * genders.length)]
-        targetAge = ageRange
-      } else {
-        targetGender = selectedGender === "masculino" ? "feminino" : "masculino"
-        targetAge = ageRange
-      }
-
-      names = targetGender === "masculino" ? maleNames[targetAge] : femaleNames[targetAge]
-      const name = names[Math.floor(Math.random() * names.length)]
-      const age = Math.floor(Math.random() * 7) + Number.parseInt(targetAge.split("-")[0])
-
-      let profileImage = `https://images.unsplash.com/photo-${1500000000000 + Math.floor(Math.random() * 100000000)}?w=400&h=400&fit=crop&crop=face`
-
-      if (selectedGender === "nao-binario") {
-        if (shouldUseCustomPhotosNonBinary1824 && combinedPhotos1824[i] !== undefined) {
-          profileImage = combinedPhotos1824[i]
-        } else if (shouldUseCustomPhotosNonBinary2534 && combinedPhotos2534[i] !== undefined) {
-          profileImage = combinedPhotos2534[i]
-        } else if (shouldUseCustomPhotosNonBinary3544 && combinedPhotos3544[i] !== undefined) {
-          profileImage = combinedPhotos3544[i]
-        } else if (shouldUseCustomPhotosNonBinary4554 && combinedPhotos4554[i] !== undefined) {
-          profileImage = combinedPhotos4554[i]
-        }
-      } else if (shouldUseCustomPhotos1824 && shuffledPhotoIndices1824[i] !== undefined) {
-        profileImage = femalePhotos1824[shuffledPhotoIndices1824[i]]
-      } else if (shouldUseCustomPhotos2534 && shuffledPhotoIndices2534[i] !== undefined) {
-        profileImage = femalePhotos2534[shuffledPhotoIndices2534[i]]
-      } else if (shouldUseCustomPhotos3544 && shuffledPhotoIndices3544[i] !== undefined) {
-        profileImage = femalePhotos3544[shuffledPhotoIndices3544[i]]
-      } else if (shouldUseCustomPhotos4554 && shuffledPhotoIndices4554[i] !== undefined) {
-        profileImage = femalePhotos4554[shuffledPhotoIndices4554[i]]
-      } else if (shouldUseCustomPhotosMale1824 && shuffledPhotoIndicesMale1824[i] !== undefined) {
-        profileImage = malePhotos1824[shuffledPhotoIndicesMale1824[i]]
-      } else if (shouldUseCustomPhotosMale2534 && shuffledPhotoIndicesMale2534[i] !== undefined) {
-        profileImage = malePhotos2534[shuffledPhotoIndicesMale2534[i]]
-      } else if (shouldUseCustomPhotosMale3544 && shuffledPhotoIndicesMale3544[i] !== undefined) {
-        profileImage = malePhotos3544[shuffledPhotoIndicesMale3544[i]]
-      } else if (shouldUseCustomPhotosMale4554 && shuffledPhotoIndicesMale4554[i] !== undefined) {
-        profileImage = malePhotos4554[shuffledPhotoIndicesMale4554[i]]
-      }
+      const name = shuffledNames[i % shuffledNames.length];
+      const profileImage = shuffledPhotos[i % shuffledPhotos.length];
+      const location = shuffledLocations[i % shuffledLocations.length]; // Pega uma cidade embaralhada
+      const age = Math.floor(Math.random() * 7) + (parseInt(ageRange.split("-")[0]) || 25);
 
       profiles.push({
         name,
@@ -866,20 +1081,22 @@ export default function SigiloX() {
         description: "Active user, frequently online",
         image: profileImage,
         bio: sampleBios[Math.floor(Math.random() * sampleBios.length)],
-        location: locations[Math.floor(Math.random() * locations.length)],
-        distance: `${Math.floor(Math.random() * 10) + 1} ${Math.random() > 0.5 ? "miles" : "km"} away`,
+        // 4. Aplica a localização dinâmica aqui
+        location: `Lives in ${location}`,
+        distance: `${Math.floor(Math.random() * 25) + 1} km away`, // Distância mais realista
         orientation: orientations[Math.floor(Math.random() * orientations.length)],
         personality: personalityTags[Math.floor(Math.random() * personalityTags.length)],
         interests: interestTags[Math.floor(Math.random() * interestTags.length)],
         verified: Math.random() > 0.5,
-      })
+      });
     }
 
-    setGeneratedProfiles(profiles)
-    return profiles
+    setGeneratedProfiles(profiles);
+    return profiles;
   }, [
     selectedGender,
     ageRange,
+    city, // <-- IMPORTANTE: Adicione 'city' às dependências do useCallback
     femalePhotos1824,
     femalePhotos2534,
     femalePhotos3544,
@@ -888,30 +1105,6 @@ export default function SigiloX() {
     malePhotos2534,
     malePhotos3544,
     malePhotos4554,
-    shouldUseCustomPhotosNonBinary1824,
-    shouldUseCustomPhotosNonBinary2534,
-    shouldUseCustomPhotosNonBinary3544,
-    shouldUseCustomPhotosNonBinary4554,
-    shouldUseCustomPhotos1824,
-    shouldUseCustomPhotos2534,
-    shouldUseCustomPhotos3544,
-    shouldUseCustomPhotos4554,
-    shouldUseCustomPhotosMale1824,
-    shouldUseCustomPhotosMale2534,
-    shouldUseCustomPhotosMale3544,
-    shouldUseCustomPhotosMale4554,
-    shuffledPhotoIndices1824,
-    shuffledPhotoIndices2534,
-    shuffledPhotoIndices3544,
-    shuffledPhotoIndices4554,
-    shuffledPhotoIndicesMale1824,
-    shuffledPhotoIndicesMale2534,
-    shuffledPhotoIndicesMale3544,
-    shuffledPhotoIndicesMale4554,
-    combinedPhotos1824,
-    combinedPhotos2534,
-    combinedPhotos3544,
-    combinedPhotos4554,
   ])
 
   const openProfileModal = (profile: any) => {
@@ -989,7 +1182,9 @@ export default function SigiloX() {
                     </div>
                     <span
                       className={`font-medium transition-colors duration-300 text-xs sm:text-sm whitespace-nowrap ${
-                        step.completed ? "text-green-600" : "text-gray-500"
+                        step.completed
+                          ? "text-green-600"
+                          : "text-gray-500"
                       }`}
                     >
                       <span className="block sm:hidden">{step.mobileLabel}</span>
@@ -1282,7 +1477,7 @@ export default function SigiloX() {
                           className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover flex-shrink-0 border-2 border-gray-200 shadow-sm"
                           onError={(e) => {
                             e.currentTarget.src =
-                              "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHx8fGVufDB8MHx8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80"
+                              "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHx8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80"
                           }}
                         />
                         <div className="flex-1 min-w-0 text-left">
@@ -2326,7 +2521,7 @@ export default function SigiloX() {
                           <button className="flex-1 bg-gray-200 text-gray-700 py-3 rounded-full font-semibold hover:bg-gray-300 transition-colors">
                             Pass
                           </button>
-                          <button className="flex-1 bg-gradient-to-r from-pink-500 to-red-500 text-white py-3 rounded-full font-semibold hover:from-pink-600 hover:to-red-600 transition-colors">
+                          <button className="flex-1 bg-gradient-to-r from-pink-500 to-red-500 text-white py-3 rounded-full font-semibold hover:bg-pink-600 hover:to-red-600 transition-colors">
                             Like
                           </button>
                         </div>
@@ -2402,101 +2597,4 @@ export default function SigiloX() {
                           </span>
                         </div>
                         <div className="flex items-start gap-3 sm:gap-4">
-                          <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-500 flex-shrink-0 mt-1" />
-                          <span className="text-sm sm:text-base text-gray-700 font-medium">
-                            Exact Location Data (where they've been 'working late' or 'with friends')
-                          </span>
-                        </div>
-                        <div className="flex items-start gap-3 sm:gap-4">
-                          <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-500 flex-shrink-0 mt-1" />
-                          <span className="text-sm sm:text-base text-gray-700 font-medium">
-                            Active Matches & Messages (names, photos, and chat frequency)
-                          </span>
-                        </div>
-                        <div className="flex items-start gap-3 sm:gap-4">
-                          <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-500 flex-shrink-0 mt-1" />
-                          <span className="text-sm sm:text-base text-gray-700 font-medium">
-                            Timeline of All Activity (when they were most active while with you)
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Trust Signals */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8">
-                      <div className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-gray-50 rounded-xl">
-                        <Lock className="w-4 h-4 sm:w-5 sm:h-5 text-green-500" />
-                        <span className="text-xs sm:text-sm font-medium text-gray-700">100% Anonymous</span>
-                      </div>
-                      <div className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-gray-50 rounded-xl">
-                        <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500" />
-                        <span className="text-xs sm:text-sm font-medium text-gray-700">SSL Encryption</span>
-                      </div>
-                      <div className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 bg-gray-50 rounded-xl">
-                        <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500" />
-                        <span className="text-xs sm:text-sm font-medium text-gray-700">Instant Access</span>
-                      </div>
-                    </div>
-
-                    {/* Timer */}
-                    <div className="bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-200 rounded-xl p-4 sm:p-6 mb-6 sm:mb-8">
-                      <div className="flex items-center justify-center gap-2 sm:gap-3 mb-2">
-                        <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-red-500" />
-                        <span className="font-bold text-red-700 text-sm sm:text-base">OFFER EXPIRES IN:</span>
-                      </div>
-                      <div className="text-2xl sm:text-3xl font-bold text-red-600 mb-2">{formatTime(timeLeft)}</div>
-                      <p className="text-xs sm:text-sm text-red-600">
-                        This is your only chance to access this report. Once deleted, it cannot be recovered.
-                      </p>
-                    </div>
-
-                    {/* CTA Button - Fixed Text Overflow */}
-                    <Button
-                      onClick={() => (window.location.href = "/emergency")}
-                      className="w-full bg-gradient-to-r from-[#FF0066] to-[#FF3333] hover:from-[#FF0066] hover:to-[#FF3333] text-white font-bold py-4 sm:py-6 text-sm sm:text-base md:text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 mb-4 sm:mb-6 overflow-hidden"
-                    >
-                      <span className="block text-center leading-tight px-2">
-                        🔓 UNLOCK MY REPORT - I'M READY FOR THE TRUTH
-                      </span>
-                    </Button>
-
-                    {/* Final Reassurance */}
-                    <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 sm:p-6 mb-4 sm:mb-6">
-                      <p className="text-sm sm:text-base text-blue-700 font-medium leading-relaxed">
-                        You're not invading privacy - you're protecting your emotional well-being. You have the right to
-                        make informed decisions about your relationship.
-                      </p>
-                    </div>
-
-                    {/* Testimonial */}
-                    <div className="bg-gray-50 rounded-xl p-4 sm:p-6">
-                      <div className="flex items-start gap-3 sm:gap-4">
-                        <img
-                          src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHx8fGVufDB8MHx8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-                          alt="Sarah M."
-                          className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover border-2 border-gray-200"
-                        />
-                        <div className="flex-1 text-left">
-                          <div className="mb-2">
-                            <p className="font-bold text-[#333333] text-sm sm:text-base">Sarah M.</p>
-                            <p className="text-xs sm:text-sm text-green-600 font-medium">✓ Verified User</p>
-                          </div>
-                          <p className="text-sm sm:text-base text-gray-600 italic leading-relaxed">
-                            "I wish I had done this months ago. Would have saved me so much anxiety and wasted time."
-                          </p>
-                          <div className="flex items-center text-[#FFD700] text-sm mt-2">
-                            <span>⭐⭐⭐⭐⭐</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </div>
-  )
-}
+                          <CheckCircle className="w-5 h-5 sm:w-6 sm:\
