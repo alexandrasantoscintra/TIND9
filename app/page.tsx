@@ -2533,15 +2533,9 @@ export default function SigiloX() {
             </motion.div>
           )}
 
-                    {/* Offer Page - Mobile Optimized */}
+          {/* Offer Page */}
           {currentStep === "offer" && (
-            <motion.div
-              key="offer"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="min-h-screen bg-gradient-to-br from-[#1C2833] to-[#6C63FF] px-4 py-6 sm:py-8"
-            >
+            <motion.div key="offer" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="min-h-screen bg-gradient-to-br from-[#1C2833] to-[#6C63FF] px-4 py-6 sm:py-8" >
               <div className="container mx-auto max-w-2xl">
                 <Card className="bg-white rounded-2xl shadow-lg border-0">
                   <CardContent className="p-6 sm:p-8 text-center">
@@ -2550,17 +2544,10 @@ export default function SigiloX() {
                       <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-red-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg">
                         <Heart className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
                       </div>
-                      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#333333] mb-3 sm:mb-4">
-                        You Deserve to Know the Whole Truth
-                      </h1>
-                      <p className="text-base sm:text-lg text-gray-600 mb-4 sm:mb-6 leading-relaxed">
-                        Stop wondering. Stop losing sleep. Get every detail - completely confidential.
-                      </p>
+                      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#333333] mb-3 sm:mb-4"> You Deserve to Know the Whole Truth </h1>
+                      <p className="text-base sm:text-lg text-gray-600 mb-4 sm:mb-6 leading-relaxed"> Stop wondering. Stop losing sleep. Get every detail - completely confidential. </p>
                       <div className="bg-gradient-to-r from-red-50 to-pink-50 border-2 border-red-200 rounded-xl p-4 sm:p-6">
-                        <p className="text-sm sm:text-base text-red-700 font-semibold leading-relaxed">
-                          Your instincts were right. Now see exactly what they've been hiding while looking you in the
-                          eye and lying.
-                        </p>
+                        <p className="text-sm sm:text-base text-red-700 font-semibold leading-relaxed"> Your instincts were right. Now see exactly what they've been hiding while looking you in the eye and lying. </p>
                       </div>
                     </div>
 
@@ -2570,37 +2557,32 @@ export default function SigiloX() {
                         <div className="text-2xl sm:text-3xl text-gray-400 line-through">$47.00</div>
                         <div className="text-4xl sm:text-5xl font-bold text-[#FF0066]">$17.00</div>
                       </div>
-                      <div className="inline-flex items-center gap-2 bg-gradient-to-r from-red-500 to-pink-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm sm:text-base font-bold mb-4">
-                        🔥 62% OFF - LIMITED TIME
-                      </div>
-                      <p className="text-sm sm:text-base text-gray-600 font-medium">
-                        One-time payment for lifetime access to your complete report
-                      </p>
+                      <div className="inline-flex items-center gap-2 bg-gradient-to-r from-red-500 to-pink-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm sm:text-base font-bold mb-4"> 🔥 62% OFF - LIMITED TIME </div>
+                      <p className="text-sm sm:text-base text-gray-600 font-medium"> One-time payment for lifetime access to your complete report </p>
                     </div>
 
                     {/* What You'll Unlock */}
                     <div className="text-left mb-6 sm:mb-8">
-                      <h3 className="text-lg sm:text-xl font-bold text-[#333333] mb-4 sm:mb-6 text-center">
-                        What You'll Unlock:
-                      </h3>
+                      <h3 className="text-lg sm:text-xl font-bold text-[#333333] mb-4 sm:mb-6 text-center"> What You'll Unlock: </h3>
                       <div className="space-y-3 sm:space-y-4">
                         <div className="flex items-start gap-3 sm:gap-4">
                           <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-500 flex-shrink-0 mt-1" />
-                          <span className="text-sm sm:text-base text-gray-700 font-medium">
-                            Every Single Profile Photo (including ones they think you'll never see)
-                          </span>
+                          <span className="text-sm sm:text-base text-gray-700 font-medium"> Every Single Profile Photo (including ones they think you'll never see) </span>
                         </div>
                         <div className="flex items-start gap-3 sm:gap-4">
                           <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-500 flex-shrink-0 mt-1" />
-                          <span className="text-sm sm:text-base text-gray-700 font-medium">
-                            Complete Conversation History (see exactly what they're telling other people)
-                          </span>
+                          <span className="text-sm sm:text-base text-gray-700 font-medium"> Complete Conversation History (see exactly what they're telling other people) </span>
                         </div>
-                        {/* ESTA PARTE ESTAVA FALTANDO E QUEBRADA */}
                       </div>
                     </div>
+
                   </CardContent>
                 </Card>
               </div>
             </motion.div>
           )}
+        </AnimatePresence>
+      </div>
+    </div>
+  )
+}
