@@ -971,36 +971,31 @@ export default function SigiloX() {
   const [combinedPhotos3544, setCombinedPhotos3544] = useState<string[]>([])
   const [combinedPhotos4554, setCombinedPhotos4554] = useState<string[]>([])
 
-      const generateFakeProfiles = useCallback(() => {
+          const generateFakeProfiles = useCallback(() => {
     const profiles: any[] = []
+    const usedNames: string[] = []
+    const usedImages: string[] = []
 
-    // Helper para embaralhar um array
-    const shuffleArray = (array: any[]) => {
-      const newArr = [...array];
-      for (let i = newArr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+    // Helper para evitar repetições de nomes e fotos nos 3 matches
+    const getUniqueItem = (sourceArray: string[], usedArray: string[]) => {
+      if (!sourceArray || sourceArray.length === 0) return "/placeholder.svg";
+      const availableItems = sourceArray.filter(item => !usedArray.includes(item));
+      if (availableItems.length === 0) {
+        return sourceArray[Math.floor(Math.random() * sourceArray.length)];
       }
-      return newArr;
-    };
-
-    // --- INÍCIO: Nova Lógica de Localização (Repetir a cidade do lead) ---
-
-    let matchLocation = ""; // Esta variável guardará a cidade a ser usada em TODOS os matches.
-
+      const selectedItem = availableItems[Math.floor(Math.random() * availableItems.length)];
+      usedArray.push(selectedItem);
+      return selectedItem;
+    }
+    
+    // Lógica de localização (repetindo a cidade do lead)
+    let matchLocation = "";
     if (city) {
-        // CASO 1: A geolocalização do lead funcionou. Usaremos a cidade dele.
         matchLocation = city;
     } else {
-        // CASO 2: A geolocalização falhou. Escolhemos UMA cidade padrão aleatória
-        // para usar como fallback em todos os matches.
-        const defaultGlobalLocations = [
-          "New York", "Los Angeles", "Chicago", "London", "Paris", "Tokyo", "Sydney", "Miami"
-        ];
+        const defaultGlobalLocations = ["New York", "Los Angeles", "Chicago", "London"];
         matchLocation = defaultGlobalLocations[Math.floor(Math.random() * defaultGlobalLocations.length)];
     }
-
-    // --- FIM: Nova Lógica de Localização ---
 
     const sampleBios = [
       "I'm what you get if you mix Pete Davidson with Denzel Washington. I'm funny on accident and my mom thinks I'm handsome",
@@ -1080,44 +1075,73 @@ export default function SigiloX() {
       ["Dancing", "Charity Work", "Animation", "Cocktails"],
       ["Singing", "Ocean Conservation", "Mystery Novels", "Picnics"]
 ];
-    const orientations = ["Straight", "Straight", "Bisexual", "Pansexual", "Straight", "Queer"];
-
-    let names, targetGender, photoArray;
-
-    if (selectedGender === "nao-binario") {
-      const genders = ["masculino", "feminino"];
-      targetGender = genders[Math.floor(Math.random() * genders.length)];
-    } else {
-      targetGender = selectedGender === "masculino" ? "feminino" : "masculino";
-    }
-
-    if (targetGender === "masculino") {
-      names = maleNames[ageRange] || maleNames["25-34"];
-      switch (ageRange) {
-        case "18-24": photoArray = malePhotos1824; break;
-        case "25-34": photoArray = malePhotos2534; break;
-        case "35-44": photoArray = malePhotos3544; break;
-        case "45-54": photoArray = malePhotos4554; break;
-        default: photoArray = malePhotos2534;
-      }
-    } else {
-      names = femaleNames[ageRange] || femaleNames["25-34"];
-      switch (ageRange) {
-        case "18-24": photoArray = femalePhotos1824; break;
-        case "25-34": photoArray = femalePhotos2534; break;
-        case "35-44": photoArray = femalePhotos3544; break;
-        case "45-54": photoArray = femalePhotos4554; break;
-        default: photoArray = femalePhotos2534;
-      }
-    }
-
-    const shuffledNames = shuffleArray(names);
-    const shuffledPhotos = shuffleArray(photoArray);
+    const orientations = ["Straight", "Bisexual", "Pansexual", "Queer"];
 
     for (let i = 0; i < 3; i++) {
-      const name = shuffledNames[i % shuffledNames.length];
-      const profileImage = shuffledPhotos[i % shuffledPhotos.length];
-      const age = Math.floor(Math.random() * 7) + (parseInt(ageRange.split("-")[0]) || 25);
+      let currentGender: 'masculino' | 'feminino';
+      let currentAgeRange: keyof typeof maleNames;
+      let names: string[];
+      let photoArray: string[];
+      
+      if (selectedGender === "nao-binario") {
+        // --- INÍCIO: LÓGICA CORRIGIDA PARA NÃO-BINÁRIO ---
+        
+        // Sorteia um gênero para o nome
+        currentGender = Math.random() < 0.5 ? "masculino" : "feminino";
+        
+        // Sorteia uma faixa etária
+        const ageRanges: (keyof typeof maleNames)[] = ["18-24", "25-34", "35-44", "45-54"];
+        currentAgeRange = ageRanges[Math.floor(Math.random() * ageRanges.length)];
+
+        // Com base na faixa etária sorteada, combina os arrays de fotos
+        switch (currentAgeRange) {
+          case "18-24":
+            photoArray = [...malePhotos1824, ...femalePhotos1824];
+            break;
+          case "25-34":
+            photoArray = [...malePhotos2534, ...femalePhotos2534];
+            break;
+          case "35-44":
+            photoArray = [...malePhotos3544, ...femalePhotos3544];
+            break;
+          case "45-54":
+            photoArray = [...malePhotos4554, ...femalePhotos4554];
+            break;
+          default:
+            photoArray = [...malePhotos2534, ...femalePhotos2534]; // Fallback
+        }
+        // --- FIM: LÓGICA CORRIGIDA PARA NÃO-BINÁRIO ---
+
+      } else {
+        // Lógica original para masculino/feminino
+        currentGender = selectedGender === "masculino" ? "feminino" : "masculino";
+        currentAgeRange = ageRange as keyof typeof maleNames;
+
+        if (currentGender === 'masculino') {
+          switch (currentAgeRange) {
+            case "18-24": photoArray = malePhotos1824; break;
+            case "25-34": photoArray = malePhotos2534; break;
+            case "35-44": photoArray = malePhotos3544; break;
+            case "45-54": photoArray = malePhotos4554; break;
+            default: photoArray = malePhotos2534;
+          }
+        } else { // feminino
+          switch (currentAgeRange) {
+            case "18-24": photoArray = femalePhotos1824; break;
+            case "25-34": photoArray = femalePhotos2534; break;
+            case "35-44": photoArray = femalePhotos3544; break;
+            case "45-54": photoArray = femalePhotos4554; break;
+            default: photoArray = femalePhotos2534;
+          }
+        }
+      }
+      
+      // Seleciona o array de nomes com base no gênero (sorteado ou fixo)
+      names = (currentGender === 'masculino' ? maleNames : femaleNames)[currentAgeRange] || [];
+      
+      const name = getUniqueItem(names, usedNames);
+      const profileImage = getUniqueItem(photoArray, usedImages);
+      const age = Math.floor(Math.random() * 7) + (parseInt(currentAgeRange.split("-")[0]) || 25);
 
       profiles.push({
         name,
@@ -1126,9 +1150,8 @@ export default function SigiloX() {
         description: "Active user, frequently online",
         image: profileImage,
         bio: sampleBios[Math.floor(Math.random() * sampleBios.length)],
-        // Aqui usamos a variável 'matchLocation' para todos os perfis
         location: `Lives in ${matchLocation}`,
-        distance: `${Math.floor(Math.random() * 15) + 1} km away`, // Distância mais curta para parecer mais local
+        distance: `${Math.floor(Math.random() * 15) + 1} km away`,
         orientation: orientations[Math.floor(Math.random() * orientations.length)],
         personality: personalityTags[Math.floor(Math.random() * personalityTags.length)],
         interests: interestTags[Math.floor(Math.random() * interestTags.length)],
@@ -1141,7 +1164,9 @@ export default function SigiloX() {
   }, [
     selectedGender,
     ageRange,
-    city, // A dependência 'city' continua importante aqui
+    city,
+    // As dependências dos arrays de fotos originais continuam aqui, pois são usadas
+    // diretamente dentro desta função. Isso está correto.
     femalePhotos1824,
     femalePhotos2534,
     femalePhotos3544,
@@ -1150,7 +1175,7 @@ export default function SigiloX() {
     malePhotos2534,
     malePhotos3544,
     malePhotos4554,
-  ])
+  ]);
 
   const openProfileModal = (profile: any) => {
     setSelectedProfile(profile)
