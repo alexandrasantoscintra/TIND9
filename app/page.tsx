@@ -1007,13 +1007,79 @@ export default function SigiloX() {
       "Adventure seeker, coffee lover, and dog enthusiast. Looking for someone to explore the city with!",
       "Fitness enthusiast by day, Netflix binger by night. Let's grab a smoothie and talk about life.",
       "Artist, dreamer, and part-time philosopher. I believe in good vibes and great conversations.",
-    ];
+      "Part comedian, part couch potato. I bring the laughs, you bring the snacks—deal?",
+      "Explorer of new places and old pizza joints. Let’s find the best slice in town.",
+      "Gym rat by morning, taco enthusiast by night. Wanna join me for either?",
+      "Dreamer with a playlist for every mood. Share your favorite song and let’s vibe.",
+      "50% adventure, 50% Netflix. Looking for someone to balance me out.",
+      "Lover of sunsets, sarcasm, and spontaneous road trips. Got a destination in mind?",
+      "I believe in good coffee, great conversations, and petting every dog I see.",
+      "Part-time philosopher, full-time snack connoisseur. Let’s debate pizza toppings.",
+      "Always chasing sunrises and good stories. Got one to share?",
+      "My life’s a mix of chaos and chill. Join me for the chill part?",
+      "Foodie, wanderer, and occasional over-thinker. Let’s grab a bite and solve life’s mysteries.",
+      "I’m 10% witty banter, 90% trying to keep my plants alive. Help me out?",
+      "Music junkie and stargazer. Let’s find a spot to watch the sky and talk.",
+      "I bring the bad puns, you bring the eye rolls. Perfect match, right?",
+      "Lover of books, beaches, and burritos. Let’s make a story of our own.",
+      "Half adrenaline junkie, half cozy blanket enthusiast. What’s your vibe?",
+      "Always down for a hike or a late-night diner run. Pick your adventure!",
+      "I’m the friend who’s always late but brings the best playlists. Wanna jam?",
+      "Life’s too short for bad coffee or boring chats. Let’s make both epic.",
+      "Part dreamer, part doer, all about good vibes. Ready to make some memories?"
+];
     const personalityTags = [
-      ["Capricorn", "INTJ", "Cat"], ["Leo", "ENFP", "Dog"], ["Virgo", "ISFJ", "Coffee"], ["Gemini", "ENTP", "Travel"]
-    ];
+      ["Capricorn", "INTJ", "Cat"],
+      ["Leo", "ENFP", "Dog"],
+      ["Virgo", "ISFJ", "Coffee"],
+      ["Gemini", "ENTP", "Travel"],
+      ["Aries", "ESTP", "Adventure"],
+      ["Taurus", "INFJ", "Books"],
+      ["Scorpio", "INTP", "Music"],
+      ["Libra", "ESFJ", "Art"],
+      ["Aquarius", "ENFJ", "Stargazing"],
+      ["Pisces", "INFP", "Dreams"],
+      ["Cancer", "ISFP", "Beach"],
+      ["Sagittarius", "ENTJ", "Hiking"],
+      ["Capricorn", "ISTJ", "Cooking"],
+      ["Leo", "ESFP", "Dance"],
+      ["Virgo", "ISTP", "Gaming"],
+      ["Gemini", "ENFP", "Photography"],
+      ["Aries", "ESTJ", "Sports"],
+      ["Taurus", "INFP", "Nature"],
+      ["Scorpio", "INTJ", "Mystery"],
+      ["Libra", "ENFJ", "Fashion"],
+      ["Aquarius", "ENTP", "Tech"],
+      ["Pisces", "ISFJ", "Movies"],
+      ["Cancer", "INFJ", "Poetry"],
+      ["Sagittarius", "ESFP", "Parties"]
+];
     const interestTags = [
-      ["Pro-Choice", "Coffee", "Black Lives Matter", "Tattoos"], ["Yoga", "Sustainability", "Photography", "Cooking"], ["Fitness", "Meditation", "Books", "Wine"]
-    ];
+      ["Pro-Choice", "Coffee", "Black Lives Matter", "Tattoos"],
+      ["Yoga", "Sustainability", "Photography", "Cooking"],
+      ["Fitness", "Meditation", "Books", "Wine"],
+      ["Travel", "Music", "Animal Rights", "Hiking"],
+      ["Art", "Veganism", "Movies", "Adventure"],
+      ["Gaming", "Technology", "Nature", "Crafting"],
+      ["Dance", "Social Justice", "Podcasts", "Baking"],
+      ["Fashion", "Environmentalism", "Poetry", "Camping"],
+      ["Sports", "Mental Health", "Gardening", "Vinyl Records"],
+      ["Writing", "Climate Action", "Theater", "Coffee Shops"],
+      ["Running", "Volunteering", "Board Games", "Street Food"],
+      ["Painting", "LGBTQ+ Rights", "Concerts", "Thrifting"],
+      ["Cycling", "Mindfulness", "Sci-Fi", "Breweries"],
+      ["Skiing", "Activism", "Documentaries", "Sunsets"],
+      ["Surfing", "Urban Exploration", "Comics", "Craft Beer"],
+      ["Climbing", "Equality", "Jazz Music", "Vintage Cars"],
+      ["Skateboarding", "Sustainable Fashion", "Podcasts", "Food Trucks"],
+      ["Kayaking", "Animal Welfare", "Fantasy Books", "Stargazing"],
+      ["Boxing", "Community Service", "Indie Films", "Sushi"],
+      ["Hiking", "Green Living", "Live Music", "Pottery"],
+      ["Swimming", "Feminism", "History", "Barbecue"],
+      ["Photography", "Minimalism", "True Crime", "Road Trips"],
+      ["Dancing", "Charity Work", "Animation", "Cocktails"],
+      ["Singing", "Ocean Conservation", "Mystery Novels", "Picnics"]
+];
     const orientations = ["Straight", "Straight", "Bisexual", "Pansexual", "Straight", "Queer"];
 
     let names, targetGender, photoArray;
