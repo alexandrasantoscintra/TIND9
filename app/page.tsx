@@ -976,7 +976,6 @@ export default function SigiloX() {
     const usedNames: string[] = []
     const usedImages: string[] = []
 
-    // Helper para evitar repetições de nomes e fotos nos 3 matches
     const getUniqueItem = (sourceArray: string[], usedArray: string[]) => {
       if (!sourceArray || sourceArray.length === 0) return "/placeholder.svg";
       const availableItems = sourceArray.filter(item => !usedArray.includes(item));
@@ -988,7 +987,6 @@ export default function SigiloX() {
       return selectedItem;
     }
     
-    // Lógica de localização (repetindo a cidade do lead)
     let matchLocation = "";
     if (city) {
         matchLocation = city;
@@ -1078,70 +1076,53 @@ export default function SigiloX() {
     const orientations = ["Straight", "Bisexual", "Pansexual", "Queer"];
 
     for (let i = 0; i < 3; i++) {
-      let currentGender: 'masculino' | 'feminino';
-      let currentAgeRange: keyof typeof maleNames;
-      let names: string[];
-      let photoArray: string[];
+      let profileGender: 'masculino' | 'feminino';
+      let profileAgeRange: keyof typeof maleNames;
       
       if (selectedGender === "nao-binario") {
-        // --- INÍCIO: LÓGICA CORRIGIDA PARA NÃO-BINÁRIO ---
+        // --- INÍCIO: LÓGICA CORRIGIDA PARA GARANTIR CONSISTÊNCIA ---
         
-        // Sorteia um gênero para o nome
-        currentGender = Math.random() < 0.5 ? "masculino" : "feminino";
+        // 1. Sorteia o GÊNERO para este perfil específico (homem ou mulher)
+        profileGender = Math.random() < 0.5 ? "masculino" : "feminino";
         
-        // Sorteia uma faixa etária
+        // 2. Sorteia a FAIXA ETÁRIA para este perfil específico
         const ageRanges: (keyof typeof maleNames)[] = ["18-24", "25-34", "35-44", "45-54"];
-        currentAgeRange = ageRanges[Math.floor(Math.random() * ageRanges.length)];
-
-        // Com base na faixa etária sorteada, combina os arrays de fotos
-        switch (currentAgeRange) {
-          case "18-24":
-            photoArray = [...malePhotos1824, ...femalePhotos1824];
-            break;
-          case "25-34":
-            photoArray = [...malePhotos2534, ...femalePhotos2534];
-            break;
-          case "35-44":
-            photoArray = [...malePhotos3544, ...femalePhotos3544];
-            break;
-          case "45-54":
-            photoArray = [...malePhotos4554, ...femalePhotos4554];
-            break;
-          default:
-            photoArray = [...malePhotos2534, ...femalePhotos2534]; // Fallback
-        }
-        // --- FIM: LÓGICA CORRIGIDA PARA NÃO-BINÁRIO ---
+        profileAgeRange = ageRanges[Math.floor(Math.random() * ageRanges.length)];
+        // --- FIM: LÓGICA CORRIGIDA ---
 
       } else {
-        // Lógica original para masculino/feminino
-        currentGender = selectedGender === "masculino" ? "feminino" : "masculino";
-        currentAgeRange = ageRange as keyof typeof maleNames;
+        // Lógica original para masculino/feminino (mostra o gênero oposto)
+        profileGender = selectedGender === "masculino" ? "feminino" : "masculino";
+        profileAgeRange = ageRange as keyof typeof maleNames;
+      }
 
-        if (currentGender === 'masculino') {
-          switch (currentAgeRange) {
-            case "18-24": photoArray = malePhotos1824; break;
-            case "25-34": photoArray = malePhotos2534; break;
-            case "35-44": photoArray = malePhotos3544; break;
-            case "45-54": photoArray = malePhotos4554; break;
-            default: photoArray = malePhotos2534;
-          }
-        } else { // feminino
-          switch (currentAgeRange) {
-            case "18-24": photoArray = femalePhotos1824; break;
-            case "25-34": photoArray = femalePhotos2534; break;
-            case "35-44": photoArray = femalePhotos3544; break;
-            case "45-54": photoArray = femalePhotos4554; break;
-            default: photoArray = femalePhotos2534;
-          }
+      let names: string[];
+      let photoArray: string[];
+
+      // 3. AGORA, com o gênero e idade definidos, pega os nomes e fotos corretos
+      if (profileGender === 'masculino') {
+        names = maleNames[profileAgeRange] || [];
+        switch (profileAgeRange) {
+          case "18-24": photoArray = malePhotos1824; break;
+          case "25-34": photoArray = malePhotos2534; break;
+          case "35-44": photoArray = malePhotos3544; break;
+          case "45-54": photoArray = malePhotos4554; break;
+          default: photoArray = malePhotos2534;
+        }
+      } else { // feminino
+        names = femaleNames[profileAgeRange] || [];
+        switch (profileAgeRange) {
+          case "18-24": photoArray = femalePhotos1824; break;
+          case "25-34": photoArray = femalePhotos2534; break;
+          case "35-44": photoArray = femalePhotos3544; break;
+          case "45-54": photoArray = femalePhotos4554; break;
+          default: photoArray = femalePhotos2534;
         }
       }
       
-      // Seleciona o array de nomes com base no gênero (sorteado ou fixo)
-      names = (currentGender === 'masculino' ? maleNames : femaleNames)[currentAgeRange] || [];
-      
       const name = getUniqueItem(names, usedNames);
       const profileImage = getUniqueItem(photoArray, usedImages);
-      const age = Math.floor(Math.random() * 7) + (parseInt(currentAgeRange.split("-")[0]) || 25);
+      const age = Math.floor(Math.random() * 7) + (parseInt(profileAgeRange.split("-")[0]) || 25);
 
       profiles.push({
         name,
@@ -1165,8 +1146,7 @@ export default function SigiloX() {
     selectedGender,
     ageRange,
     city,
-    // As dependências dos arrays de fotos originais continuam aqui, pois são usadas
-    // diretamente dentro desta função. Isso está correto.
+    // As dependências continuam corretas
     femalePhotos1824,
     femalePhotos2534,
     femalePhotos3544,
